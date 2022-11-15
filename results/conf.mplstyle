@@ -1,0 +1,12 @@
+figure.figsize: 3.5, 2.625
+
+lines.linewidth: 1
+
+font.family: serif
+font.size: 10
+font.serif: cmr10
+
+savefig.dpi: 1200
+savefig.bbox: tight
+
+pdf.fonttype: 42

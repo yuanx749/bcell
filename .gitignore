@@ -5,6 +5,15 @@ envs/
 *.txt
 !requirements.txt
 !data/blosum62.txt
+*.pt
+!results/model.pt
+*.ipynb
+*.pdf
+*.xlsx
+*.docx
+pakdd/
+ijcnn/
+ecmlpkdd/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
