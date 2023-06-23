@@ -15,6 +15,9 @@ pakdd/
 ijcnn/
 ecmlpkdd/
 play.py
+main.*
+!main.tex
+*.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
