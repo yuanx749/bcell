@@ -13,10 +13,11 @@ Linux is preferred. GPU is not required.
     pip install -r requirements.txt
     ```
 
--   Alternatively, to be more specific, use conda in Linux:
+-   Alternatively, to be more specific, use [micromamba](https://mamba.readthedocs.io/en/latest/installation.html) in Linux:
 
     ```bash
-    conda env create -p ./envs -f environment.yml
+    micromamba env create -p ./envs -f environment.yml
+    micromamba activate ./envs
     ```
 
 ## Usage

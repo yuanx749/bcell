@@ -18,9 +18,6 @@ dfa = pd.read_csv("bcell_full_v3.csv", header=[0, 1], nrows=10)
 dfa.columns.to_list()
 
 # %%
-# dfa = pd.read_csv("bcell_full_v3.csv", header=1)
-
-# %%
 dfa = pd.read_csv(
     "bcell_full_v3.csv",
     header=1,

@@ -17,7 +17,7 @@ from sklearn.metrics import (
 )
 from torch.utils.data import DataLoader
 
-from data import FASTA, SARS, EpitopeDataset, Vocab
+from data import FASTA, EpitopeDataset, Vocab
 from model import *
 from train import print_metrics
 from utils import evaluate
@@ -32,7 +32,6 @@ def compute_metrics(lst: dict):
     if "label_ig" in lst.keys():
         label_ig = np.array(lst["label_ig"])
         prediction_ig = np.array(lst["prediction_ig"])
-        prediction_p = np.array(lst["prediction_p"])
         mask = label_ig != -1
         label_ig = label_ig[mask]
         prediction_ig = prediction_ig[mask]
@@ -52,10 +51,6 @@ file = "model.pt"
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = torch.load(result_dir / file, map_location=device)
 vocab = Vocab(max_len=25)
-
-test_data = SARS("0r.csv", "123r.csv", root=ROOT / "data", vocab=vocab)
-test_loader = DataLoader(test_data, batch_size=1, collate_fn=test_data.collate_fn)
-compute_metrics(evaluate(test_loader, model))
 
 test_data = EpitopeDataset(vocab=vocab, root=ROOT / "data", split="test")
 test_loader = DataLoader(

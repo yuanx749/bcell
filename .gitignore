@@ -14,7 +14,7 @@ envs/
 pakdd/
 ijcnn/
 ecmlpkdd/
-play.py
+play*.py
 main.*
 !main.tex
 *.zip

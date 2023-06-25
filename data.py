@@ -7,7 +7,7 @@ import scipy.linalg as linalg
 import torch
 import torch.nn as nn
 from sklearn.model_selection import StratifiedShuffleSplit
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import Dataset
 
 
 class Vocab:
@@ -59,16 +59,8 @@ class Vocab:
     def eig_embedding(self, filename, emb_size=None, data_dir="./data"):
         a = self.read_matrix(filename, data_dir)
         w, v = linalg.eigh(np.exp2(a))
-        # signs = [1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, -1, -1, 1, 1, 1, 1, 1, 1, -1]
-        # v = v * (np.sign(v[0]) * signs)
         v = v * np.sign(v[0])
         mat = v @ np.diag(w**0.5)
-        return self.init_weight(mat, emb_size)
-
-    def svd_embedding(self, filename, emb_size=None, data_dir="./data"):
-        a = self.read_matrix(filename, data_dir)
-        u, s, vh = linalg.svd(a)
-        mat = u @ np.diag(s**0.5)
         return self.init_weight(mat, emb_size)
 
 
@@ -178,18 +170,6 @@ class BinaryClassification(SequenceBase):
         d["label_p"] = label_p
         d["label"] = labels
         return d
-
-
-class SARS(BinaryClassification):
-    def __init__(self, neg_file, pos_file, root="./data", vocab=Vocab()):
-        super().__init__(vocab)
-        df0 = pd.read_csv(Path(root, f"{neg_file}"), index_col=0)
-        df1 = pd.read_csv(Path(root, f"{pos_file}"), index_col=0)
-        self.df = pd.concat([df0, df1])
-        self.df = self.df[self.df["SARS_CoV2"] == 1]
-        self.input = [vocab.numericalize(seq) for seq in self.df["Description"]]
-        self.df["Label"] = (self.df["Label"] > 0).astype(int)
-        self.label = self.df["Label"].tolist()
 
 
 class FASTA(BinaryClassification):
