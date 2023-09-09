@@ -18,6 +18,8 @@ play*.py
 main.*
 !main.tex
 *.zip
+*.pptx
+*.mp4
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

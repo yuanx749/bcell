@@ -2,6 +2,8 @@
 
 A deep learning framework for linear **B**-cell **e**pitope prediction and antibody type-specific **e**pitope classification using **T**ransformer and **L**STM **e**ncoders.
 
+[arXiv](https://arxiv.org/abs/2309.02071)
+
 ## Installation
 
 Linux is preferred. GPU is not required.
