@@ -2,7 +2,7 @@
 
 A deep learning framework for linear **B**-cell **e**pitope prediction and antibody type-specific **e**pitope classification using **T**ransformer and **L**STM **e**ncoders.
 
-[arXiv](https://arxiv.org/abs/2309.02071)
+[arXiv](https://arxiv.org/abs/2309.02071) | [ECML PKDD 2023](https://doi.org/10.1007/978-3-031-43427-3_29)
 
 ## Installation
 
