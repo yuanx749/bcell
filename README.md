@@ -15,11 +15,11 @@ Linux is preferred. GPU is not required.
     pip install -r requirements.txt
     ```
 
--   Alternatively, to be more specific, use [micromamba](https://mamba.readthedocs.io/en/latest/installation.html) in Linux:
+-   Alternatively, to be more specific, use [mamba](https://mamba.readthedocs.io/en/latest/) in Linux:
 
     ```bash
-    micromamba env create -p ./envs -f environment.yml
-    micromamba activate ./envs
+    mamba env create -p ./envs -f environment.yml
+    mamba activate ./envs
     ```
 
 ## Usage
