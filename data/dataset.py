@@ -168,3 +168,36 @@ dfc[dfc["Label"] > 0].to_csv("123r.csv")
 df2fasta(dfc[dfc["SARS_CoV2"] == 1], "sars")
 
 # %%
+from sklearn.model_selection import StratifiedShuffleSplit
+
+size = 5000
+splits = ("train", "valid", "test")
+
+df_neg = pd.read_csv("0r.csv", index_col=0)
+df_neg = df_neg[df_neg["SARS_CoV2"] == 0]
+df_neg = df_neg.sample(frac=1, random_state=42)
+if "Label" not in df_neg.columns:
+    df_neg["Label"] = 0
+d_neg = dict.fromkeys(splits)
+d_neg["train"] = df_neg.iloc[: -2 * size]
+d_neg["valid"] = df_neg.iloc[-2 * size : -size]
+d_neg["test"] = df_neg.iloc[-size:]
+
+df_pos = pd.read_csv("123r.csv", index_col=0)
+df_pos = df_pos[df_pos["SARS_CoV2"] == 0]
+y = df_pos["Label"]
+sss = StratifiedShuffleSplit(n_splits=1, test_size=size, random_state=42)
+train_index, test_index = next(sss.split(y, y))
+d_pos = dict.fromkeys(splits)
+d_pos["test"] = df_pos.iloc[test_index]
+df_pos = df_pos.iloc[train_index]
+y = df_pos["Label"]
+sss = StratifiedShuffleSplit(n_splits=1, test_size=size, random_state=42)
+train_index, valid_index = next(sss.split(y, y))
+d_pos["valid"] = df_pos.iloc[valid_index]
+d_pos["train"] = df_pos.iloc[train_index]
+
+for split in splits:
+    pd.concat([d_neg[split], d_pos[split]]).to_csv(f"{split}.csv")
+
+# %%

@@ -6,7 +6,6 @@ import pandas as pd
 import scipy.linalg as linalg
 import torch
 import torch.nn as nn
-from sklearn.model_selection import StratifiedShuffleSplit
 from torch.utils.data import Dataset
 
 
@@ -88,41 +87,11 @@ class EpitopeDataset(SequenceBase):
         self,
         vocab=Vocab(),
         root="./data",
-        neg_file="0r",
-        pos_file="123r",
         split="train",
-        size=5000,
     ):
         super().__init__()
         self.vocab = vocab
-        df0 = pd.read_csv(Path(root, f"{neg_file}.csv"), index_col=0)
-        df0 = df0[df0["SARS_CoV2"] == 0]
-        df0 = df0.sample(frac=1, random_state=42)
-        if split == "train":
-            df0 = df0.iloc[: -2 * size]
-        elif split == "valid":
-            df0 = df0.iloc[-2 * size : -size]
-        elif split == "test":
-            df0 = df0.iloc[-size:]
-        if "Label" not in df0.columns:
-            df0["Label"] = 0
-        df1 = pd.read_csv(Path(root, f"{pos_file}.csv"), index_col=0)
-        df1 = df1[df1["SARS_CoV2"] == 0]
-        y = df1["Label"]
-        sss = StratifiedShuffleSplit(n_splits=1, test_size=size, random_state=42)
-        train_index, test_index = next(sss.split(y, y))
-        if split == "test":
-            df1 = df1.iloc[test_index]
-        else:
-            df1 = df1.iloc[train_index]
-            y = df1["Label"]
-            sss = StratifiedShuffleSplit(n_splits=1, test_size=size, random_state=42)
-            train_index, valid_index = next(sss.split(y, y))
-            if split == "valid":
-                df1 = df1.iloc[valid_index]
-            elif split == "train":
-                df1 = df1.iloc[train_index]
-        self.df = pd.concat([df0, df1])
+        self.df = pd.read_csv(Path(root, f"{split}.csv"), index_col=0)
         self.input = [vocab.numericalize(seq) for seq in self.df["Description"]]
         self.label = self.df["Label"].tolist()
 
