@@ -4,6 +4,28 @@ A deep learning framework for linear **B**-cell **e**pitope prediction and antib
 
 [arXiv](https://arxiv.org/abs/2309.02071) | [ECML PKDD 2023](https://doi.org/10.1007/978-3-031-43427-3_29)
 
+## Usage
+
+### Command Line
+
+After installed, run command like below. It takes a few seconds to predict 10000 peptides.
+
+```bash
+python cli.py -i input.fasta -o output.csv
+```
+
+To show help, run `python cli.py -h`. The input is a FASTA file of peptides. The output is a table with following columns:
+
+-   identifier: FASTA header.
+-   sequence: FASTA sequence.
+-   score: Probability of being epitope.
+-   epitope: {0, 1}. 1 for epitope (score > 0.5).
+-   Ig: {A, E, M}. The antibody most probably binds to in these three types.
+
+### Web App
+
+Without installation, navigate to [Streamlit](https://beetle.streamlit.app/).
+
 ## Installation
 
 Linux is preferred. GPU is not required.
@@ -21,22 +43,6 @@ Linux is preferred. GPU is not required.
     mamba env create -p ./envs -f environment.yml
     mamba activate ./envs
     ```
-
-## Usage
-
-Run command like below. It takes a few seconds to predict 10000 peptides.
-
-```bash
-python cli.py -i input.fasta -o output.csv
-```
-
-To show help, run `python cli.py -h`. The input is a FASTA file of peptides. The output is a table with following columns:
-
--   identifier: FASTA header.
--   sequence: FASTA sequence.
--   score: Probability of being epitope.
--   epitope: {0, 1}. 1 for epitope (score > 0.5).
--   Ig: {A, E, M}. The antibody most probably binds to in these three types.
 
 ## Data
 
