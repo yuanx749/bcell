@@ -85,3 +85,12 @@ def predict(data: DataLoader, model: nn.Module):
             for k in output.keys():
                 lst[k].extend(output[k].tolist())
     return lst
+
+def dict2df(lst: dict) -> pd.DataFrame:
+    label = dict(zip(range(3), ["A", "E", "M"]))
+    data = {
+        "score": lst["score_p"],
+        "epitope": lst["prediction_p"],
+        "Ig": [label[e] for e in lst["prediction_ig"]],
+    }
+    return pd.DataFrame(data)
