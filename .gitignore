@@ -20,6 +20,7 @@ main.*
 *.zip
 *.pptx
 *.mp4
+arxiv/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
