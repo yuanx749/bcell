@@ -45,7 +45,7 @@ class Vocab:
 
     @staticmethod
     def read_matrix(filename, data_dir="./data"):
-        df = pd.read_csv(Path(data_dir, filename), sep="\s+", index_col=0)
+        df = pd.read_csv(Path(data_dir, filename), sep=r"\s+", index_col=0)
         df = df.sort_index().loc[:, df.columns.sort_values()]
         return df.to_numpy(dtype=float)
 
